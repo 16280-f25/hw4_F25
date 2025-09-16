@@ -6,7 +6,7 @@ from scipy.spatial import cKDTree
 
 """
 
-This starter code provides code base to implement point to plane ICP for HW5a Q4a
+This starter code provides code base to implement point to plane ICP for HW4 Q3
 This is a stand alone code and does not require ROS
 --- TBD --- indicates the section to fill out   
 ... indicates the specific place to type the code
@@ -315,3 +315,4 @@ if __name__ == "__main__":
     mapper.visualize_odom()
     mapper.run_icp()
     mapper.plot_map()
+
