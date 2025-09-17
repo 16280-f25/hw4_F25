@@ -82,7 +82,7 @@ class PauseAndCapture(Node):
                 ...  # Timeout of 0.5 seconds to wait for the transform
             )
 
-            transformed_points = ... # Transform the point cloud with the transform
+            transformed_points = ... # Transform the point cloud with the transform_pointclod2 function
 
             if self.icp_accumulated_points:
                 icp_aligned = self.perform_icp(transformed_points, self.icp_accumulated_points)
@@ -116,7 +116,7 @@ class PauseAndCapture(Node):
             #using the roll,pitch and yaw construct the Rx , Ry, Rz matrix
 
             #TODO:
-            # Combined rotation matrix (left yaw, middle pitch, rightmost roll)
+            # Combined rotation matrix
 
             #TODO:
             # Apply the rotation to the point
@@ -146,8 +146,8 @@ class PauseAndCapture(Node):
         return transformed_points
 
     def perform_icp(self, previous_points, current_points, max_iterations=20, tolerance=1e-4):
-        src = np.array(previous_points)
-        dst = np.array(current_points)
+        src = np.array(current_points)
+        tgt = np.array(previous_points)
 
         ERROR = []
         prev_error = float('inf')
@@ -155,13 +155,26 @@ class PauseAndCapture(Node):
         counter_ = 0
         
         # Write the ICP loop here
-        # Hint: cKdtree() function will be useful to get distances and indices
+        '''
+        Useful Steps to Follow For the Loop:
+        1. Start icp loop for max_iterations
+        2. Build KDTree for target cloud, cKdtree from scipy
+        3. Find nearest neighbors from source to tgt
+        4. Compute centroids of matched source and target points
+        5. Center both poibt clouds by subtracting their centroids
+        6. Compute the cross-covariance matrix
+        7. SVD on step 6
+        8. Compute rotation matrix R from SVD, np.linalg.svd will help
+        9. Compute translation vector t from centroids and rotation
+        10. Apply the transformation to the source points
+        11. Compute mean error and check for convergence
+        12. If converged, break the loop
+        '''
         ...
 
         return src.tolist()
     
 
-    #TODO: Same function from HW 4 :)
     # Curr = Source, Prev = Target 
     def svd_estimation(self, previous_points, current_points):
         pass
